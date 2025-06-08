@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hover Reveal</title>
+  <style>
+    body {
+      margin: 0;
+      background:black;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 100vw;
+      box-sizing: border-box;
+    }
+    .back{
+      align-self: flex-start;
+      margin-left: 20vh;
+      text-decoration: none;
+      color: white;
+      text-decoration: underline;
+    }
+    .back:hover{
+      text-decoration: overline;
+      color: whitesmoke;
+    }
+    .container {
+      position: relative;
+      width: 350px;
+      height: 400px;
+      overflow: hidden;
+      box-shadow: 0px 0px 0px 5px white;
+      text-align: center;
+    }
+    .container2{
+      position: relative;
+      width: 350px;
+      height: 400px;
+      overflow: hidden;
+      box-shadow: 0px 0px 0px 5px white;
+      text-align: center;
+    }
+    .solution-container{
+      text-align: center;
+    }
+    .cover-layer {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgb(0, 0, 0,0.2); /* You can change this color */
+      z-index: 1;
+    }
+
+    .hidden-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      clip-path: circle(0% at 0 0);
+      transition: clip-path 0.2s ease-out;
+      z-index: 0;
+    }
+    .userInput{
+      background-color: transparent;
+      border-radius: 7px;
+      box-shadow: 0px 0px 0px 10px black;
+      border: 1px solid whitesmoke;
+      margin-top:25px;
+      margin-right: 15px;
+      width: 25px;
+      height: 25px;
+      color: white;
+      font-size: 20px;
+      text-align: center;
+    }
+    .submit-button{
+      background-color: lightseagreen;
+      border: 1px solid grey;
+      width: 100px;
+      height: 40px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    .submit-button:hover{
+      background-color: transparent;
+      text-decoration: 1px dotted overline;
+      color: white;
+    }
+    .word-length{
+      color: white;
+    }
+    .correct-answer{
+      color: green;
+      font-size: 22px;
+    }
+    .wrong-answer{
+      color: red;
+      font-size: 22px;
+    }
+    .input-ele{
+      margin-top: 20px;
+      background-color: transparent;
+      color: white;
+      height: 30px;
+      border: 1px solid gray;
+    }
+    .display{
+      display: none;
+    }
+    .reveal-image{
+      width: 100%;
+      height: 100%;
+      animation: fadeInUp 2.0s ease-out forwards; 
+    }
+    @keyframes fadeInUp {
+      0% {
+          opacity: 0;
+          transform: translateY(20px);
+      }
+
+      100% {
+          opacity: 1;
+          transform: translateY(0);
+      }
+    }
+    .margin-property{
+      margin-left: 50px;
+    }
+    .score{
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back">Back To Home</a>
+  <div class="doraemonImage" id="doraemon">
+    <p class="score">Score: <span id="score"></span></p>
+    <div class="container">
+      <div class="cover-layer"></div>
+      <img src="https://i.pinimg.com/236x/84/1d/cf/841dcf6728fe0123a47278431cbcfc85.jpg" alt="Hidden" class="hidden-image">
+    </div>
+    <div class="container2" id="image-reveal">
+      <img src="https://i.pinimg.com/236x/84/1d/cf/841dcf6728fe0123a47278431cbcfc85.jpg" alt="Hidden" class="reveal-image">
+    </div>
+    <div class="solution-container">
+      <input type="text" id="userAnswer" class="input-ele" autocomplete="off"/>
+      <p id="solution" class="word-length">The Word Contain 9 Letters.</p>
+      <button class="submit-button" id="submit1">Submit</button>
+      <button class="submit-button" id="next">Next</button>
+    </div>
+  </div>
+  <script>
+    const container = document.querySelector('.container');
+    const hiddenImage = document.querySelector('.hidden-image');
+    let image_reveal = document.getElementById('image-reveal');
+    image_reveal.classList.add("display");
+
+    container.addEventListener('mousemove', (e) => {
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      hiddenImage.style.clipPath = `circle(20px at ${x}px ${y}px)`;
+    });
+
+    container.addEventListener('mouseleave', () => {
+      hiddenImage.style.clipPath = 'circle(0% at 0 0)';
+    });
+
+    let submit1 = document.getElementById('submit1');
+    let userAnswer = document.getElementById('userAnswer');
+    let solution = document.getElementById('solution');
+    let score = document.getElementById('score');
+    let temp = localStorage.getItem("scoreForEachGame");
+    score.textContent = temp;
+    let five = localStorage.getItem("five");
+    if(five === "Answered"){
+      submit1.classList.add('display');
+      container.classList.add("display");
+      image_reveal.classList.remove("display");
+
+    }
+
+    submit1.onclick = function(){
+      
+      if(userAnswer.value.toLowerCase().trim() == "soundarya"){
+        solution.textContent = "Congrats!! Correct Answer ";
+        solution.classList.add('correct-answer');
+        container.classList.add("display");
+        image_reveal.classList.remove("display");
+        submit1.classList.add('display');
+        temp = parseInt(temp)+1;
+
+        localStorage.setItem("five", "Answered");
+      }
+      else if(userAnswer.value === ""){
+        alert('Fill the Blank!')
+      }else{
+        solution.textContent = "Wrong Answer,  Better Luck Next Time!";
+        solution.classList.add('wrong-answer');
+        container.classList.add("margin-property");
+        submit1.classList.add('display');
+        localStorage.setItem("five", "Answered");
+      }
+
+      localStorage.setItem("scoreForEachGame", temp);
+      score.textContent = temp;
+      
+    }
+
+    let nextButton = document.getElementById('next');
+    nextButton.onclick = function(){
+      window.location.href="sixth_actor.html";
+    }
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body{
+            margin: 0px;
+        }
+        .total-page{
+            background-image: url('https://t4.ftcdn.net/jpg/03/03/32/29/360_F_303322991_j4dMRbdkvaTKU8o50FJichVrYEbvjbWJ.jpg');
+            height: 100vh;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .get-started-button{
+            background-color: whitesmoke;
+            font-size: 20px;
+            width: 180px;
+            height: 40px;
+            border-radius: 5px;
+            border: 1px solid gray;
+        }
+        .get-started-button:hover{
+            background: transparent;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="total-page">
+        <button id="get-started-button" class="get-started-button">
+            Get Started
+        </button>
+    </div>
+    <script>
+        let getStartedButton = document.getElementById('get-started-button');
+        let numberOfTimesPlayed = 0;
+        let scoreForEachGame = 0;
+
+        let one = "notAnswered";
+        let two = "notAnswered";
+        let three = "notAnswered";
+        let four = "notAnswered";
+        let five = "notAnswered";
+        let six = "notAnswered";
+        let seven = "notAnswered";
+        let eight = "notAnswered";
+        let nine = "notAnswered";
+        let ten = "notAnswered";
+
+        localStorage.setItem("one",one);
+        localStorage.setItem("two",two);
+        localStorage.setItem("three",three);
+        localStorage.setItem("four",four);
+        localStorage.setItem("five",five);
+        localStorage.setItem("six",six);
+        localStorage.setItem("seven",seven);
+        localStorage.setItem("eight",eight);
+        localStorage.setItem("nine", nine);
+        localStorage.setItem("ten", ten);
+
+        getStartedButton.onclick = function(){
+            localStorage.setItem("numberOfTimesPlayed", numberOfTimesPlayed);
+            localStorage.setItem("scoreForEachGame", scoreForEachGame);
+            window.location.href = "first_cartoon.html";
+        }
+
+    </script>
+</body>
+</html>

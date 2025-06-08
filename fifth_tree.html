@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quiz Question</title>
+</head>
+<style>
+    .tree-image{
+        width: 300px;
+        height: 400px;
+    }
+    .question{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .submit-button{
+        background-color: transparent;
+        border: 1px solid gray;
+        border-radius: 5px;
+        width: 150px;
+        height: 40px;
+    }
+    .submit-button:hover{
+        text-decoration: underline;
+        background-color: ghostwhite;
+    }
+    .display{
+        display: none;
+    }
+    .back{
+      align-self: flex-start;
+      margin-left: 20vh;
+      color: black;
+      text-decoration: underline;
+    }
+    .back:hover{
+      text-decoration: overline;
+      color: gray;
+    }
+</style>
+<body>
+  <a href="index.html" class="back">Back To Home</a>
+    <div class="question">
+        <p>Score: <span class="score" id="score"></span></p>
+        <div>
+            <img src="https://npr.brightspotcdn.com/dims4/default/b36a237/2147483647/strip/true/crop/740x555+0+0/resize/880x660!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F7a%2F01%2F4e09c958403793a84cead6c48963%2Fhawthorn-tree.jpg" class="tree-image"/>
+        </div>
+        <form id="quizForm">
+            <label><input type="radio" name="choice" value="Fir Tree">Fir Tree</label><br>
+            <label><input type="radio" name="choice" value="Hawthorn Tree">Hawthorn Tree</label><br>
+            <label><input type="radio" name="choice" value="Willow Tree">Willow Tree</label><br>
+            <label><input type="radio" name="choice" value="Cypress Tree">Cypress Tree</label><br><br>
+            <button type="button" onclick="submitAnswer()" class="submit-button" id="submit1">Submit Answer</button>
+            <button type="button" onclick="viewScore()" class="submit-button">View Score</button>
+        </form>
+    </div>
+  <script>
+    let score = localStorage.getItem("scoreForEachGame");
+    let tempScore = document.getElementById('score');
+
+    let submit1 = document.getElementById('submit1');
+    tempScore.textContent = score;
+
+    let five = localStorage.getItem("five");
+    if(five === "Answered"){
+        submit1.classList.add('display');
+    }
+    function submitAnswer() {
+      const radios = document.getElementsByName('choice');
+      let selectedValue = "";
+      for (let radio of radios) {
+        if (radio.checked) {
+          selectedValue = radio.value;
+          break;
+        }
+      }
+
+      if (!selectedValue) {
+        alert("Please select an answer.");
+      } else if (selectedValue === "Hawthorn Tree") {
+        score = parseInt(score)+1;
+        localStorage.setItem("scoreForEachGame", score);
+        tempScore.textContent = score;
+        localStorage.setItem("five", "Answered");
+        alert("Correct! 🎉");
+        submit1.classList.add('display');
+      } else {
+        alert("Wrong answer! Try next time");
+        localStorage.setItem("five", "Answered");
+        submit1.classList.add('display');
+      }
+    }
+
+    function viewScore(){
+        alert('Congrats! Your Score is: '+ score +'/5');
+    }
+  </script>
+</body>
+</html>

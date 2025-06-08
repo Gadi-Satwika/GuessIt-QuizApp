@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quiz Question</title>
+</head>
+<style>
+    .tree-image{
+        width: 300px;
+        height: 400px;
+    }
+    .question{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .submit-button{
+        background-color: transparent;
+        border: 1px solid gray;
+        border-radius: 5px;
+        width: 150px;
+        height: 40px;
+    }
+    .submit-button:hover{
+        text-decoration: underline;
+        background-color: ghostwhite;
+    }
+    .display{
+        display: none;
+    }
+    .back{
+      align-self: flex-start;
+      margin-left: 20vh;
+      color: black;
+      text-decoration: underline;
+    }
+    .back:hover{
+      text-decoration: overline;
+      color: gray;
+    }
+</style>
+<body>
+  <a href="index.html" class="back">Back To Home</a>
+    <div class="question">
+        <p>Score: <span class="score" id="score"></span></p>
+        <div>
+            <img src="https://www.coniferousforest.com/wp-content/uploads/2020/02/PineTree.jpg" class="tree-image"/>
+        </div>
+        <form id="quizForm">
+            <label><input type="radio" name="choice" value="Pine Tree">Pine Tree</label><br>
+            <label><input type="radio" name="choice" value="Oak Tree">Oak Tree</label><br>
+            <label><input type="radio" name="choice" value="Birch Tree">Birch Tree</label><br>
+            <label><input type="radio" name="choice" value="None"> None of These</label><br><br>
+            <button type="button" onclick="submitAnswer()" class="submit-button" id="submit1">Submit Answer</button>
+            <button type="button" onclick="nextQue()" class="submit-button">Next Question</button>
+        </form>
+    </div>
+  <script>
+    let score = localStorage.getItem("scoreForEachGame");
+    let tempScore = document.getElementById('score');
+
+    let submit1 = document.getElementById('submit1');
+    tempScore.textContent = score;
+
+    let one = localStorage.getItem("one");
+    if(one === "Answered"){
+        submit1.classList.add('display');
+    }
+    function submitAnswer() {
+      const radios = document.getElementsByName('choice');
+      let selectedValue = "";
+      for (let radio of radios) {
+        if (radio.checked) {
+          selectedValue = radio.value;
+          break;
+        }
+      }
+
+      if (!selectedValue) {
+        alert("Please select an answer.");
+      } else if (selectedValue === "Pine Tree") {
+        score = parseInt(score)+1;
+        localStorage.setItem("scoreForEachGame", score);
+        tempScore.textContent = score;
+        localStorage.setItem("one", "Answered");
+        submit1.classList.add('display');
+        alert("Correct! 🎉");
+      } else {
+        alert("Wrong answer! Try next time");
+        localStorage.setItem("one", "Answered");
+        submit1.classList.add('display');
+      }
+    }
+
+    function nextQue(){
+        window.location.href="second_tree.html";
+    }
+  </script>
+</body>
+</html>
