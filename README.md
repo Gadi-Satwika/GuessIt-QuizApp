@@ -20,7 +20,7 @@ Have you ever tried guessing cartoons, actors, or trees from blurred or hidden i
 
 ## 📸 Preview
 
-![GuessIt Screenshot](screenshot.png)
+https://gadi-satwika.github.io/SCT_WD_3/
 
 📬 Contact
 Let’s connect: satwikagadi2005@gmail.com
