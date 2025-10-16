@@ -18,7 +18,8 @@ Built during my internship at Skill Craft Technology
 
 ## 📸 Preview
 
-https://gadi-satwika.github.io/SCT_WD_3/
+[https://gadi-satwika.github.io/SCT_WD_3/](https://gadi-satwika.github.io/GuessIt-QuizApp/
+)
 
 📬 Contact
 Let’s connect: satwikagadi2005@gmail.com
