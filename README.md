@@ -1,9 +1,10 @@
 
-### ✅ 3. **GuessIt – Quiz Application**
+### **GuessIt – Quiz Application**
 
 # GuessIt – Quiz Application
 
 Have you ever tried guessing cartoons, actors, or trees from blurred or hidden images? This interactive quiz app challenges users to test their knowledge by revealing hidden parts of images on hover.
+Built during my internship at Skill Craft Technology
 
 ## 🎮 Features
 
